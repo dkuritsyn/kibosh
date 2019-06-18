@@ -38,9 +38,9 @@ static struct kibosh_fault_unreadable *kibosh_fault_unreadable_parse(json_value 
     json_value *code_obj = NULL;
     json_value *prefix_obj = NULL;
 
-    code_obj = get_child(obj, "code");
+    code_obj = get_child(obj, "errorCode");
     if ((!code_obj) || (code_obj->type != json_integer)) {
-        INFO("kibosh_fault_unreadable_parse: No \"code\" field found in fault object.\n");
+        INFO("kibosh_fault_unreadable_parse: No \"errorCode\" field found in fault object.\n");
         goto error;
     }
     prefix_obj = get_child(obj, "prefix");
