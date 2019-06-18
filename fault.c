@@ -74,7 +74,7 @@ static char *kibosh_fault_unreadable_unparse(struct kibosh_fault_unreadable *fau
 {
     return dynprintf("{\"type\":\"unreadable\", "
                      "\"prefix\":\"%s\", "
-                     "\"code\":%d}",
+                     "\"errorCode\":%d}",
                      fault->prefix, fault->code);
 }
 
