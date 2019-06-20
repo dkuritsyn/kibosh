@@ -221,14 +221,16 @@ int faults_parse(const char *str, struct kibosh_faults **out)
 	char updated_str[strlen(str)];
 	strcpy(updated_str, str);
 
-	char *empty_str = "{\"faults\":[]}";
+	char empty_str[] = "{\"faults\":[]}";
 	char *result = empty_str;
 
 	if (strcmp(updated_str, "{}") != 0) {
 	   result = updated_str;
 	}
 
-    root = json_parse_ex(&settings, result, strlen(result), error);
+	const char *result_const = result;
+
+    root = json_parse_ex(&settings, result_const, strlen(result_const), error);
     if (!root) {
         INFO("faults_parse: failed to parse input string of length %zd: %s\n", strlen(result), error);
         goto done;
