@@ -240,6 +240,22 @@ static void swap_ints(int *a, int *b)
     *b = temp;
 }
 
+const char *do_shit(const char *str) {
+	char updated_str[strlen(str)];
+	strcpy(updated_str, str);
+
+	static char *empty_str = "{\"faults\":[]}";
+	char *result = empty_str;
+
+	if (strcmp(updated_str, "{}") != 0) {
+	   result = updated_str;
+	}
+
+	const char *result_const = result;
+	return result_const;
+
+}
+
 int kibosh_fs_accessor_fd_release(struct kibosh_fs *fs, int fd)
 {
     int flags, ret;
@@ -275,7 +291,10 @@ int kibosh_fs_accessor_fd_release(struct kibosh_fs *fs, int fd)
                 fs->control_buf, -ret, safe_strerror(-ret));
         goto done_release_lock;
     }
-    strncpy(fs->cur_control_json, fs->control_buf, CONTROL_BUF_LEN);
+
+	const char *result = do_shit(fs->control_buf);
+
+    strncpy(fs->cur_control_json, result, CONTROL_BUF_LEN);
     fs->faults = faults;
     swap_ints(&fd, &fs->control_fd);
     INFO("kibosh_fs_accessor_fd_release: successfully parsed '%s'\n", fs->control_buf);

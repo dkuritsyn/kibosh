@@ -220,7 +220,7 @@ static const long
    flag_block_comment    = 1 << 14;
 
 json_value * json_parse_ex (json_settings * settings,
-                            const json_char * json,
+                            json_char * json,
                             size_t length,
                             char * error_buf)
 {

@@ -30,7 +30,7 @@
 #include <unistd.h>
 
 /**
- * kibosh_fault_unreadable 
+ * kibosh_fault_unreadable
  */
 static struct kibosh_fault_unreadable *kibosh_fault_unreadable_parse(json_value *obj)
 {
@@ -99,7 +99,7 @@ static void kibosh_fault_unreadable_free(struct kibosh_fault_unreadable *fault)
 }
 
 /**
- * kibosh_fault_base 
+ * kibosh_fault_base
  */
 struct kibosh_fault_base *kibosh_fault_base_parse(json_value *obj)
 {
@@ -162,7 +162,7 @@ int faults_calloc(struct kibosh_faults **out)
 }
 
 /**
- * kibosh_faults 
+ * kibosh_faults
  */
 static int fault_array_parse(json_value *arr, struct kibosh_faults **out)
 {
@@ -218,9 +218,19 @@ int faults_parse(const char *str, struct kibosh_faults **out)
     json_value *root = NULL, *faults;
     json_settings settings = { 0 };
 
-    root = json_parse_ex(&settings, str, strlen(str), error);
+	char updated_str[strlen(str)];
+	strcpy(updated_str, str);
+
+	char *empty_str = "{\"faults\":[]}";
+	char *result = empty_str;
+
+	if (strcmp(updated_str, "{}") != 0) {
+	   result = updated_str;
+	}
+
+    root = json_parse_ex(&settings, result, strlen(result), error);
     if (!root) {
-        INFO("faults_parse: failed to parse input string of length %zd: %s\n", strlen(str), error);
+        INFO("faults_parse: failed to parse input string of length %zd: %s\n", strlen(result), error);
         goto done;
     }
     faults = get_child(root, "faults");

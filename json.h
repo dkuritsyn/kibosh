@@ -260,7 +260,7 @@ json_value * json_parse (const json_char * json,
 
 #define json_error_max 128
 json_value * json_parse_ex (json_settings * settings,
-                            const json_char * json,
+                            json_char * json,
                             size_t length,
                             char * error);
 
